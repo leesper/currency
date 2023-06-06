@@ -1,17 +1,12 @@
 import unittest
-class Dollar:
-    def __init__(self, amount):
-        self.amount = amount
-    def times(self, multiplier):
-        return Dollar(self.amount * multiplier)
-    def __eq__(self, other):
-        return self.amount == other.amount
+from currency import Dollar
+
 
 class TestCurrency(unittest.TestCase):
     
     # TODO: $5+10CHF = $10 if rate is 2:1
     # $5 * 2 = $10
-    # TODO: make amount private
+    # make amount private
     # dollar side effect
     # TODO: money rounding
     # TODO: hashCode
@@ -19,10 +14,8 @@ class TestCurrency(unittest.TestCase):
     # TODO: equal object
     def testMultiplication(self):
         five = Dollar(5)
-        product = five.times(2)
-        self.assertEquals(10, product.amount)
-        product = five.times(3)
-        self.assertEquals(15, product.amount)
+        self.assertEqual(Dollar(10), five.times(2))
+        self.assertEqual(Dollar(15), five.times(3))
 
     # equals
     def testEquality(self):
