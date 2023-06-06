@@ -2,7 +2,7 @@ class Money:
     def __init__(self, amount=0):
         self._amount = amount
     def __eq__(self, other):
-        return self._amount == other._amount
+        return self._amount == other._amount and type(self) == type(other)
 
 class Dollar(Money):
     def __init__(self, amount):
