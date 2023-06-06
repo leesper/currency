@@ -11,7 +11,7 @@ class Money(ABC):
     def franc(amount):
         return Franc(amount)
     @abstractmethod
-    def times(multiplier):
+    def times(self, multiplier):
         pass
 
 class Dollar(Money):
