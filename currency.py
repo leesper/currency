@@ -3,6 +3,12 @@ class Money:
         self._amount = amount
     def __eq__(self, other):
         return self._amount == other._amount and type(self) == type(other)
+    @staticmethod
+    def dollar(amount):
+        return Dollar(amount)
+    @staticmethod
+    def franc(amount):
+        return Franc(amount)
 
 class Dollar(Money):
     def __init__(self, amount):
