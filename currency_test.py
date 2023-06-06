@@ -1,5 +1,5 @@
 import unittest
-from currency import Dollar
+from currency import Dollar, Franc
 
 
 class TestCurrency(unittest.TestCase):
@@ -21,3 +21,9 @@ class TestCurrency(unittest.TestCase):
     def testEquality(self):
         self.assertTrue(Dollar(5) == Dollar(5))
         self.assertFalse(Dollar(5) == Dollar(6))
+
+    # 5CHF * 2 = 10CHF
+    def testFrancMultiplication(self):
+        five = Franc(5)
+        self.assertEqual(Franc(10), five.times(2))
+        self.assertEqual(Franc(15), five.times(3))
