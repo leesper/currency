@@ -33,5 +33,8 @@ class TestCurrency(unittest.TestCase):
     # TODO: equal object
     # TODO: Dollar/Franc duplication
     # TODO: Common times
-    # TODO: Currency
+    # Currency
+    def testCurrency(self):
+        self.assertEqual("USD", Money.dollar(1).currency())
+        self.assertEqual("CHF", Money.franc(1).currency())
     # TODO: delete testFrancMultiplication
