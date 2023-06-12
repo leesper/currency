@@ -30,14 +30,15 @@ class TestCurrency(unittest.TestCase):
     def testCurrency(self):
         self.assertEqual("USD", Money.dollar(1).currency())
         self.assertEqual("CHF", Money.franc(1).currency())
-
+    
+    # Common times
+    def testDifferentClassEquality(self):
+        self.assertTrue(Money(10, "CHF") == Franc(10, "CHF"))
+    
     # TODO: $5+10CHF = $10 if rate is 2:1
     # TODO: money rounding
     # TODO: hashCode
     # TODO: equal null
     # TODO: equal object
     # TODO: Dollar/Franc duplication
-    # Common times
-    def testDifferentClassEquality(self):
-        self.assertTrue(Money(10, "CHF") == Franc(10, "CHF"))
     # TODO: delete testFrancMultiplication
