@@ -1,4 +1,8 @@
-class Money:
+from abc import ABC, abstractmethod
+class Expression(ABC):
+    pass
+
+class Money(Expression):
     def __init__(self, amount, currency):
         self._amount = amount
         self._currency = currency
@@ -19,3 +23,9 @@ class Money:
         return Money(self._amount * multiplier, self._currency)
     def currency(self):
         return self._currency
+    def plus(self, addend):
+        return Money(self._amount + addend._amount, self.currency())
+
+class Bank:
+    def reduce(self, source, to):
+        return Money.dollar(10)

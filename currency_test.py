@@ -1,5 +1,5 @@
 import unittest
-from currency import Money
+from currency import Money, Bank
 
 class TestCurrency(unittest.TestCase):
     # $5 * 2 = $10
@@ -24,6 +24,13 @@ class TestCurrency(unittest.TestCase):
         self.assertEqual("CHF", Money.franc(1).currency())
     
     # TODO: $5+10CHF = $10 if rate is 2:1
+    # TODO: $5 + $5 = $10
+    def testSimpleAddtion(self):
+        five = Money.dollar(5)
+        sum = five.plus(five)
+        bank = Bank()
+        reduced = bank.reduce(sum, "USD")
+        self.assertEqual(Money.dollar(10), reduced)
     # TODO: money rounding
     # TODO: hashCode
     # TODO: equal null
