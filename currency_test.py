@@ -1,5 +1,5 @@
 import unittest
-from currency import Money, Bank
+from currency import Money, Bank, Sum
 
 class TestCurrency(unittest.TestCase):
     # $5 * 2 = $10
@@ -25,6 +25,24 @@ class TestCurrency(unittest.TestCase):
     
     # TODO: $5+10CHF = $10 if rate is 2:1
     # TODO: $5 + $5 = $10
+    # TODO: return Money from $5 + $5
+    # TODO: reduce Money with conversion
+    # TODO: reduce(Bank, String)
+    # Bank.reduce(Money)
+    def testReduceMoney(self):
+        bank = Bank()
+        result = bank.reduce(Money.dollar(1), "USD")
+        self.assertEqual(Money.dollar(1), result)
+    def testPlusReturnsSum(self):
+        five = Money.dollar(5)
+        sum = five.plus(five)
+        self.assertEqual(five, sum.augend)
+        self.assertEqual(five, sum.addend)
+    def testReduceSum(self):
+        sum = Sum(Money.dollar(3), Money.dollar(4))
+        bank = Bank()
+        result = bank.reduce(sum, "USD")
+        self.assertEqual(Money.dollar(7), result)
     def testSimpleAddtion(self):
         five = Money.dollar(5)
         sum = five.plus(five)
