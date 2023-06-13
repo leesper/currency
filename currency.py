@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 class Expression(ABC):
-    def reduce(self, to):
+    def reduce(self, bank, to):
         pass
 
 class Money(Expression):
@@ -26,17 +26,35 @@ class Money(Expression):
         return self._currency
     def plus(self, addend):
         return Sum(self, addend)
-    def reduce(self, to):
-        return self
+    def reduce(self, bank, to):
+        rate = bank.rate(self.currency(), to)
+        return Money(self._amount / rate, to)
 
 class Bank:
+    def __init__(self):
+        self.__rates = dict()
     def reduce(self, source, to):
-        return source.reduce(to)
+        return source.reduce(self, to)
+    def rate(self, frm, to):
+        if frm == to:
+            return 1
+        return self.__rates[Pair(frm, to)]
+    def addRate(self, frm, to, rate):
+        self.__rates[Pair(frm, to)] = rate
     
 class Sum(Expression):
     def __init__(self, augend, addend):
         self.augend = augend
         self.addend = addend
-    def reduce(self, to):
+    def reduce(self, bank, to):
         amount = self.augend._amount + self.addend._amount
         return Money(amount, to)
+    
+class Pair:
+    def __init__(self, frm, to):
+        self.__frm = frm
+        self.__to = to
+    def __eq__(self, other):
+        return self.__frm == other.__frm and self.__to == other.__to
+    def __hash__(self):
+        return hash((self.__frm, self.__to))

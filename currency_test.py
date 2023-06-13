@@ -26,7 +26,14 @@ class TestCurrency(unittest.TestCase):
     # TODO: $5+10CHF = $10 if rate is 2:1
     # TODO: $5 + $5 = $10
     # TODO: return Money from $5 + $5
-    # TODO: reduce Money with conversion
+    # reduce Money with conversion
+    def testReduceMoneyDifferentCurrency(self):
+        bank = Bank()
+        bank.addRate("CHF", "USD", 2)
+        result = bank.reduce(Money.franc(2), "USD")
+        self.assertEqual(Money.dollar(1), result)
+    def testIdentityRate(self):
+        self.assertEqual(1, Bank().rate("USD", "USD")) 
     # TODO: reduce(Bank, String)
     # Bank.reduce(Money)
     def testReduceMoney(self):
