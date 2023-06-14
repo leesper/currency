@@ -4,6 +4,8 @@ class Expression(ABC):
         pass
     def plus(self, addend):
         pass
+    def times(self, multiplier):
+        pass
 
 class Money(Expression):
     def __init__(self, amount, currency):
@@ -54,6 +56,9 @@ class Sum(Expression):
         return Money(amount, to)
     def plus(self, addend):
         return Sum(self, addend)
+    def times(self, multiplier):
+        return Sum(self.augend.times(multiplier), \
+                   self.addend.times(multiplier))
     
 class Pair:
     def __init__(self, frm, to):

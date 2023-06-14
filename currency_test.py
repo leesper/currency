@@ -42,7 +42,15 @@ class TestCurrency(unittest.TestCase):
         sum = Sum(fiveBucks, tenFrancs).plus(fiveBucks)
         result = bank.reduce(sum, "USD")
         self.assertEqual(Money.dollar(15), result)
-    # TODO: Expression.times
+    # Expression.times
+    def testSumTimes(self):
+        fiveBucks = Money.dollar(5)
+        tenFrancs = Money.franc(10)
+        bank = Bank()
+        bank.addRate("CHF", "USD", 2)
+        sum = Sum(fiveBucks, tenFrancs).times(2)
+        result = bank.reduce(sum, "USD")
+        self.assertEqual(Money.dollar(20), result)
     # reduce Money with conversion
     def testReduceMoneyDifferentCurrency(self):
         bank = Bank()
