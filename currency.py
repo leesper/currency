@@ -29,6 +29,8 @@ class Money(Expression):
     def currency(self):
         return self._currency
     def plus(self, addend):
+        if self.currency() == addend.currency():
+            return Money(self._amount + addend._amount, self.currency())
         return Sum(self, addend)
     def reduce(self, bank, to):
         rate = bank.rate(self.currency(), to)

@@ -32,7 +32,10 @@ class TestCurrency(unittest.TestCase):
         result = bank.reduce(fiveBucks.plus(tenFrancs), "USD")
         self.assertEqual(Money.dollar(10), result)
     # $5 + $5 = $10
-    # TODO: return Money from $5 + $5
+    # return Money from $5 + $5
+    def testPlusSameCurrencyReturnsMoney(self):
+        sum = Money.dollar(1).plus(Money.dollar(1))
+        self.assertTrue(isinstance(sum, Money))
     # Sum.plus
     def testSumPlusMoney(self):
         fiveBucks = Money.dollar(5)
@@ -66,10 +69,11 @@ class TestCurrency(unittest.TestCase):
         result = bank.reduce(Money.dollar(1), "USD")
         self.assertEqual(Money.dollar(1), result)
     def testPlusReturnsSum(self):
-        five = Money.dollar(5)
-        sum = five.plus(five)
-        self.assertEqual(five, sum.augend)
-        self.assertEqual(five, sum.addend)
+        fiveBucks = Money.dollar(5)
+        tenFrancs = Money.franc(10)
+        sum = fiveBucks.plus(tenFrancs)
+        self.assertEqual(fiveBucks, sum.augend)
+        self.assertEqual(tenFrancs, sum.addend)
     def testReduceSum(self):
         sum = Sum(Money.dollar(3), Money.dollar(4))
         bank = Bank()
