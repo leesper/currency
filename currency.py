@@ -53,7 +53,7 @@ class Sum(Expression):
             + self.addend.reduce(bank, to)._amount
         return Money(amount, to)
     def plus(self, addend):
-        return None
+        return Sum(self, addend)
     
 class Pair:
     def __init__(self, frm, to):
