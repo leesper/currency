@@ -23,9 +23,18 @@ class TestCurrency(unittest.TestCase):
         self.assertEqual("USD", Money.dollar(1).currency())
         self.assertEqual("CHF", Money.franc(1).currency())
     
-    # TODO: $5+10CHF = $10 if rate is 2:1
-    # TODO: $5 + $5 = $10
+    # $5+10CHF = $10 if rate is 2:1
+    def testMixedAddition(self):
+        fiveBucks = Money.dollar(5)
+        tenFrancs = Money.franc(10)
+        bank = Bank()
+        bank.addRate("CHF", "USD", 2)
+        result = bank.reduce(fiveBucks.plus(tenFrancs), "USD")
+        self.assertEqual(Money.dollar(10), result)
+    # $5 + $5 = $10
     # TODO: return Money from $5 + $5
+    # TODO: Sum.plus
+    # TODO: Expression.times
     # reduce Money with conversion
     def testReduceMoneyDifferentCurrency(self):
         bank = Bank()
@@ -34,7 +43,7 @@ class TestCurrency(unittest.TestCase):
         self.assertEqual(Money.dollar(1), result)
     def testIdentityRate(self):
         self.assertEqual(1, Bank().rate("USD", "USD")) 
-    # TODO: reduce(Bank, String)
+    # reduce(Bank, String)
     # Bank.reduce(Money)
     def testReduceMoney(self):
         bank = Bank()

@@ -2,6 +2,8 @@ from abc import ABC, abstractmethod
 class Expression(ABC):
     def reduce(self, bank, to):
         pass
+    def plus(self, addend):
+        pass
 
 class Money(Expression):
     def __init__(self, amount, currency):
@@ -47,8 +49,11 @@ class Sum(Expression):
         self.augend = augend
         self.addend = addend
     def reduce(self, bank, to):
-        amount = self.augend._amount + self.addend._amount
+        amount = self.augend.reduce(bank, to)._amount \
+            + self.addend.reduce(bank, to)._amount
         return Money(amount, to)
+    def plus(self, addend):
+        return None
     
 class Pair:
     def __init__(self, frm, to):
